@@ -4,24 +4,18 @@ using System.Collections.Generic;
 
 class BaseConverter
 {
-	private int deci;
-	private string binary;
+	private int _decimal;
+	private string _binary;
 
-	public BaseConverter(int d = 0, string b = "")
+	public string DecimalToBinary(int i = -1, int size = 0)
 	{
-		deci = d;
-		binary = b;
-	}
-
-	public string Dec2Bin(int i = -1, int size = 0)
-	{
-		StringBuilder s = new StringBuilder();
-		Stack<int> stack = new Stack<int>();
+		var s = new StringBuilder();
+		var stack = new Stack<int>();
 		int r = 0;
 
 		if(i < 0)
 		{
-			i = deci;
+			i = _decimal;
 		}
 
 		if(i == 0)
@@ -33,7 +27,7 @@ class BaseConverter
 		{
 			r = i % 2;
 			stack.Push(r);
-			i = i>>1;
+			i = i >> 1;
 		}
 
 		int count = stack.Count;
@@ -42,14 +36,14 @@ class BaseConverter
 		{
 			r = stack.Pop();
 			s.Append(r);
-			count--;
+			--count;
 		}
 
-		int padding = (s.ToString().Length >= size) ? 0 : Math.Abs(s.ToString().Length - size);
+		int padding = (s.Length >= size) ? 0 : Math.Abs(s.Length - size);
 		
 		if(size > 0)
 		{
-			for(int j = 0; j < padding; j++)
+			for(int j = 0; j < padding; ++j)
 			{
 				s.Insert(0, "0");
 			}
@@ -58,23 +52,23 @@ class BaseConverter
 		return s.ToString();
 	}
 
-	public int Bin2Deci(string b = "")
+	public int BinaryToDecimal(string b = "")
 	{
 		if(b.Length == 0)
 		{
-			if(binary.Length == 0)
+			if(_binary.Length == 0)
 			{
 				return 0;
 			}
 
-			b = binary;
+			b = _binary;
 		}
 
 		int d = 0;
 		int len = b.Length;
 		int pow = len - 1;
 
-		for(int i = 0; i < len; i++)
+		for(int i = 0; i < len; ++i)
 		{
 			int t = (int) b[i] - 48;
 			d = d + t * Power(2, pow--);
@@ -89,12 +83,12 @@ class BaseConverter
 
 		if(b == 2 && p > 1)
 		{
-			r = b<<(int)(p - 1);
+			r = b << (int) (p - 1);
 		}
 
 		else
 		{
-			for(int i = 0; i < p; i++)
+			for(int i = 0; i < p; ++i)
 			{
 				r *= b;
 			}
@@ -106,11 +100,12 @@ class BaseConverter
 	public static void Main()
 	{
 		BaseConverter bc = new BaseConverter();
+		string b;
 		
-		for(int i = 0; i < 200; i++)
+		for(int i = 0; i < 500; i++)
 		{
-			string b = bc.Dec2Bin(i, 10);
-			Console.WriteLine(bc.Bin2Deci(b) + "---------->" + b);
+			b = bc.DecimalToBinary(i, 10);
+			Console.WriteLine($"{bc.BinaryToDecimal(b)}---------->{b}");
 		}
 	}
 }

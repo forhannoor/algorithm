@@ -16,7 +16,7 @@ class NumRev
 			b = b + (r * Power(10, pow--));
 		}
 
-		Console.WriteLine("Number is reverse: " + b);
+		Console.WriteLine($"Number in reverse: {b}");
 	}
 
 	public static ulong Power(ulong b, ulong p)
@@ -25,12 +25,12 @@ class NumRev
 
 		if(b == 2)
 		{
-			r = b<<(int)(p - 1);
+			r = b << (int) (p - 1);
 		}
 
 		else
 		{
-			for(ulong i = 0; i < p; i++)
+			for(ulong i = 0; i < p; ++i)
 			{
 				r *= b;
 			}

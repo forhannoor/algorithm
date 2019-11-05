@@ -4,39 +4,42 @@ class BubbleSort
 {
 	public static void Main()
 	{
-		int [] a = new int [] {5, 6, 9, 3, 2, 4, 1};
+		int [] numbers = new int [] {5, 6, 9, 3, 2, 4, 1};
 		Console.WriteLine("Before sort:");
-		Print(a);
-		Sort(ref a);
+		Print(numbers);
+		Sort(ref numbers);
 		Console.WriteLine("After sort:");
-		Print(a);
+		Print(numbers);
 	}
 
-	public static void Print(int [] a)
+	public static void Print(int [] numbers)
 	{
-		for(int i = 0; i < a.Length; i++)
+		int length = numbers.Length;
+
+		for(int i = 0; i < length; ++i)
 		{
-			Console.Write(a[i] + " ");
+			Console.Write($"{numbers[i]} ");
 		}
 
 		Console.WriteLine();
 	}
 
-	public static void Sort(ref int [] a)
+	public static void Sort(ref int [] numbers)
 	{
-		int swapCount = 1;
+		int swapCount = 1, limit, temp;
 
 		while(swapCount > 0)
 		{
 			swapCount = 0;
+			limit = numbers.Length - 1;
 
-			for(int i = 0; i < a.Length - 1; i++)
+			for(int i = 0; i < limit; ++i)
 			{
-				if(a[i] > a[i + 1])
+				if(numbers[i] > numbers[i + 1])
 				{
-					int temp = a[i + 1];
-					a[i + 1] = a[i];
-					a[i] = temp;
+					temp = numbers[i + 1];
+					numbers[i + 1] = numbers[i];
+					numbers[i] = temp;
 					swapCount++;
 				}
 			}

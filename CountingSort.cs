@@ -14,9 +14,11 @@ class CountingSort
 
 	public static void Print(int [] a)
 	{
-		for(int i = 0; i < a.Length; i++)
+		int length = a.Length;
+		
+		for(int i = 0; i < length; ++i)
 		{
-			Console.Write(a[i] + " ");
+			Console.Write($"{a[i]} ");
 		}
 
 		Console.WriteLine();
@@ -24,10 +26,10 @@ class CountingSort
 
 	public static int [] Sort(int [] a)
 	{
-		int max = a[0];
-		int [] sorted = new int [a.Length];
+		int max = a[0], length = a.Length;
+		var sorted = new int [a.Length];
 
-		for(int i = 1; i < a.Length; i++)
+		for(int i = 1; i < length; ++i)
 		{
 			if(a[i] > max)
 			{
@@ -35,23 +37,26 @@ class CountingSort
 			}
 		}
 
-		int [] count = new int [max + 1];
+		var count = new int [max + 1];
 
-		for(int i = 0; i < a.Length; i++)
+		for(int i = 0; i < length; ++i)
 		{
-			count[a[i]]++;
+			count[a[i]] += 1;
 		}
 
-		for(int i = 1; i < count.Length; i++)
+		int countLength = count.Length;
+		int current, currentCount;
+
+		for(int i = 1; i < countLength; ++i)
 		{
 			count[i] = count[i] + count[i - 1];
 		}
 
-		for(int i = 0; i < a.Length; i++)
+		for(int i = 0; i < length; ++i)
 		{
-			int current = a[i];
-			int currentCount = count[current];
-			count[current]--;
+			current = a[i];
+			currentCount = count[current];
+			count[current] -= 1;
 			sorted[currentCount - 1] = current;
 		}
 

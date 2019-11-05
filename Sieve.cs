@@ -16,30 +16,30 @@ struct Node
 
 class Sieve
 {
-	private int num;
-	private Node [] table;
+	private int _numbers;
+	private Node [] _table;
 
 	public Sieve(int n)
 	{
-		num = n;
-		table = new Node [n - 1];
+		_numbers = n;
+		_table = new Node [n - 1];
 		int start = 2;
 
-		for(int i = 0; i < n - 1; i++)
+		for(int i = 0; i < n - 1; ++i)
 		{
 			Node temp = new Node(start++);
 			temp.index = i;
-			table[i] = temp;
+			_table[i] = temp;
 		}
 	}
 
 	public void PrintPrimes()
 	{
-		for(int i = 0; i < num - 1; i++)
+		for(int i = 0; i < _numbers - 1; ++i)
 		{
-			if(! table[i].marked)
+			if(! _table[i].marked)
 			{
-				Console.Write(table[i].data + " ");
+				Console.Write($"{_table[i].data} ");
 			}
 		}
 
@@ -49,20 +49,19 @@ class Sieve
 	public void Process()
 	{
 		Node t = new Node(-1);
-		t.index = -1;
-
+		Node temp;
 		t = GetFirstUnmarked(t);
 
 		while(t.data != -1)
 		{
-			for(int i = t.index + 1; i < num - 1; i++)
+			for(int i = t.index + 1; i < _numbers - 1; ++i)
 			{
-				Node temp = table[i];
+				temp = _table[i];
 
 				if(! temp.marked && temp.data % t.data == 0)
 				{
 					temp.marked = true;
-					table[i] = temp;
+					_table[i] = temp;
 				}
 			}
 
@@ -74,11 +73,11 @@ class Sieve
 	{
 		Node n = new Node(-1);
 		
-		for(int i = last.index + 1; i < num - 1; i++)
+		for(int i = last.index + 1; i < _numbers - 1; ++i)
 		{
-			if(! table[i].marked)
+			if(! _table[i].marked)
 			{
-				n = table[i];
+				n = _table[i];
 				break;
 			}
 		}

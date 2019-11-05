@@ -2,57 +2,49 @@ using System;
 
 class Factorial
 {
-	private uint [] values;
-	private int len;
+	private uint [] _precomputedValues;
+	private int _numPrecomputedValues;
 
 	public Factorial(int size)
 	{
-		values = new uint [size];
-		len = size;
+		_precomputedValues = new uint [size];
+		_numPrecomputedValues = size;
 	}
 
 	public void Generate()
 	{
-		values[0] = 1;
+		_precomputedValues[0] = 1;
 
-		for(uint i = 1; i < values.Length; i++)
+		for(uint i = 1; i < _numPrecomputedValues; ++i)
 		{
-			values[i] = i * values[i - 1];
+			_precomputedValues[i] = i * _precomputedValues[i - 1];
 		}
 	}
 
 	public void Print()
 	{
-		for(int i = 0; i < values.Length; i++)
+		for(int i = 0; i < _numPrecomputedValues; ++i)
 		{
-			Console.Write(values[i] + " ");
+			Console.Write($"{_precomputedValues[i]}");
 		}
 	}
 
 	public uint Fac(int n)
 	{
-		if(n < len)
-			return values[n];
+		uint result = 0;
 
-		return 0;
+		if(n < _numPrecomputedValues)
+		{
+			result = _precomputedValues[n];
+		}
+
+		return result;
 	}
 
 	public static void Main()
 	{
 		Factorial f = new Factorial(20);
 		f.Generate();
-		uint res = f.Fac(19);
 		f.Print();
-		uint r = f.GetFactorial(19);
-	}
-
-	public uint GetFactorial(uint n)
-	{
-		if(n < 2)
-		{
-			return 1;
-		}
-
-		return n * GetFactorial(n - 1);
 	}
 }

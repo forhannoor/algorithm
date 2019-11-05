@@ -1,44 +1,41 @@
-/* Caesar Cipher */
-
 using System;
 using System.Text;
 
 class CaesarCipher
 {
-    private string alphabet;
-    private int length;
-    private StringBuilder sb;
-
+    private StringBuilder _stringBuilder;
+    private const string ALPHABET = "abcdefghijklmnopqrstuvwxyz";
+    
     public CaesarCipher()
     {
-        alphabet = "abcdefghijklmnopqrstuvwxyz";
-        length = alphabet.Length;
+        _stringBuilder = new StringBuilder();
     }
 
     public string Process(string message, int shift, bool encode = false)
     {
         string m = message.ToLower();
-        int len = message.Length;
-        sb = new StringBuilder();
+        int messageLength = message.Length;
         int c = 0;
+        int length = ALPHABET.Length;
+        _stringBuilder.Clear();
 
-        for(int i = 0; i < len; i++)
+        for(int i = 0; i < messageLength; ++i)
         {
-            c = alphabet.IndexOf(m[i]);
+            c = ALPHABET.IndexOf(m[i]);
 
             if(c > -1)
             {
                 c = (encode) ? (c + shift) % length : (c - shift) % length;
-                sb.Append(alphabet[c]);
+                _stringBuilder.Append(ALPHABET[c]);
             }
 
             else
             {
-                sb.Append(m[i]);
+                _stringBuilder.Append(m[i]);
             }
         }
 
-        return sb.ToString();
+        return _stringBuilder.ToString();
     }
 
 	public static void Main()
@@ -47,8 +44,8 @@ class CaesarCipher
         CaesarCipher cc = new CaesarCipher();
         string encoded = cc.Process(message, 4, true);
         string decoded = cc.Process(encoded, 4);
-        Console.WriteLine("Original message: " + message);
-        Console.WriteLine("Encoded message: " + encoded);
-        Console.WriteLine("Decoded message: " + decoded);
+        Console.WriteLine($"Original message: {message}");
+        Console.WriteLine($"Encoded message: {encoded}");
+        Console.WriteLine($"Decoded message: {decoded}");
     }
 }
