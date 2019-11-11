@@ -48,4 +48,5 @@ class CaesarCipher
         Console.WriteLine($"Encoded message: {encoded}");
         Console.WriteLine($"Decoded message: {decoded}");
     }
+
 }
